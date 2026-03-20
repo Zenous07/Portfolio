@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
+import BorderGlow from './border-glow';
 
 export default function ProjectsClient({ repos }: { repos: any[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -81,24 +82,32 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
                 href={repo.html_url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-[300px] md:w-[450px] shrink-0 p-8 border border-white/10 rounded-3xl bg-[#050505] flex flex-col hover:border-[#d49353]/50 hover:shadow-[0_0_20px_rgba(212,147,83,0.15)] transition-all duration-300 group shadow-lg"
+                className="shrink-0 group overflow-visible relative flex h-full"
               >
-                <h3 className="text-2xl font-semibold mb-4 group-hover:text-[#d49353] transition-colors font-orbitron truncate">{repo.name}</h3>
-                <p className="text-[#888888] text-sm md:text-base mb-6 line-clamp-3 flex-1 font-inter leading-relaxed">
-                  {repo.description || 'No description provided.'}
-                </p>
-                <div className="flex items-center gap-6 text-sm text-[#555555] mt-auto font-inter border-t border-white/5 pt-4">
-                  <span className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-[#d49353] inline-block shadow-[0_0_8px_rgba(212,147,83,0.8)]"></span>
-                    {repo.language || 'Code'}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    ⭐ {repo.stargazers_count}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    🍴 {repo.forks_count}
-                  </span>
-                </div>
+                <BorderGlow 
+                  className="w-[300px] md:w-[450px] shrink-0 p-8 h-full"
+                  glowColor="30 61 58"
+                  backgroundColor="#050505"
+                  colors={['#d49353', '#eab308', '#888888']}
+                  animated={true}
+                >
+                  <h3 className="text-2xl font-semibold mb-4 group-hover:text-[#d49353] transition-colors font-orbitron truncate">{repo.name}</h3>
+                  <p className="text-[#888888] text-sm md:text-base mb-6 line-clamp-3 md:line-clamp-4 flex-1 font-inter leading-relaxed">
+                    {repo.description || 'No description provided.'}
+                  </p>
+                  <div className="flex items-center gap-6 text-sm text-[#555555] mt-auto font-inter border-t border-white/5 pt-4">
+                    <span className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-[#d49353] inline-block shadow-[0_0_8px_rgba(212,147,83,0.8)]"></span>
+                      {repo.language || 'Code'}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      ⭐ {repo.stargazers_count}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      🍴 {repo.forks_count}
+                    </span>
+                  </div>
+                </BorderGlow>
               </a>
             ))
           ) : (
