@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -6,6 +7,17 @@ export default function Home() {
       {/* Main Black Container */}
       <main className="relative flex-1 w-full bg-[#050505] rounded-[40px] overflow-hidden shadow-2xl">
         
+        {/* Background Image */}
+        <Image 
+          src="/assets/hero.png" 
+          alt="Hero Background" 
+          fill 
+          className="object-contain scale-95 z-0 pointer-events-none opacity-90"
+          priority
+        />
+        {/* Dark Overlay for better contrast */}
+        <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none"></div>
+
         {/* Top Left Logo Cutout (White) */}
         <div className="absolute top-0 left-0 bg-white rounded-br-[40px] p-6 pr-8 pb-8 z-20">
           {/* Inverted Corners */}
@@ -63,7 +75,7 @@ export default function Home() {
                <div className="w-2 h-2 bg-white/50 rounded-full"></div>
             </div>
             {/* Subtle glow/gradient to indicate it's an image placeholder */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.02] to-transparent"></div>
+            <div className="absolute inset-0 bg-linear-to-tr from-white/2 to-transparent"></div>
           </div>
           
           {/* Extra dots layout as seen in reference */}
@@ -101,9 +113,6 @@ export default function Home() {
           </h1>
         </div>
         
-        {/* Background Ambient Glow */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] to-black opacity-50 z-0 pointer-events-none"></div>
-
       </main>
     </div>
   );
