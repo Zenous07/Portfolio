@@ -26,7 +26,7 @@ export default function Hero() {
 
           {/* Logo Pill */}
           <div className="relative z-10 bg-[#050505] text-white rounded-[24px] px-8 py-3 font-orbitron font-bold text-2xl tracking-widest italic flex items-center justify-center cursor-pointer">
-            LOGO
+            Zenous
           </div>
         </div>
 
@@ -100,13 +100,13 @@ export default function Hero() {
         {/* Bottom Left Huge Typography */}
         <div className="absolute bottom-12 left-12 flex flex-col font-orbitron text-white z-20 pointer-events-none select-none">
           <h1 className="text-[6vw] sm:text-[7vw] leading-[1.05] font-bold tracking-[0.05em] uppercase">
-            <span className="block hover:text-gray-300 transition-colors duration-500">Future</span>
+            <span className="block hover:text-gray-300 transition-colors duration-500">Bennett</span>
             <span className="block text-transparent relative group" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.9)' }}>
-              Fashion,
+              Joshua
               {/* Optional glowing effect hidden normally */}
               <div className="absolute inset-0 bg-white/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             </span>
-            <span className="block hover:text-gray-300 transition-colors duration-500">Redefined.</span>
+            
           </h1>
         </div>
 
