@@ -1,10 +1,18 @@
 import React from 'react';
+import Image from 'next/image';
 
 export default function About() {
   return (
     <section className="w-full min-h-screen relative bg-[#050505] flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden text-[#888888]">
       
-      {/* Subtle background grain/texture could be added here if desired */}
+      {/* Background Character Image */}
+      <Image 
+        src="/assets/aboutusChar.png" 
+        alt="About Me Character" 
+        fill
+        className="object-contain scale-95 opacity-30 z-0 pointer-events-none"
+        priority
+      />
 
       {/* Top Header Row */}
       <div className="flex flex-col md:flex-row justify-between items-start w-full relative z-10">
