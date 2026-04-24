@@ -1,121 +1,199 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Contact() {
-  return (
-    <section id="contact" className="w-full relative bg-[#050505] text-white flex flex-col pt-24 pb-8 px-6 md:px-12 lg:px-24 overflow-hidden font-inter z-10">
+  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "connecting" | "transmitting" | "received">("idle");
+  const [terminalLogs, setTerminalLogs] = useState<string[]>(["SYSTEM READY", "AWAITING INPUT..."]);
+  const terminalEndRef = useRef<HTMLDivElement>(null);
+
+  const addLog = (log: string) => {
+    setTerminalLogs(prev => [...prev, `> ${log}`].slice(-6));
+  };
+
+  const handleTransmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!message || !email) {
+      addLog("ERROR: INCOMPLETE DATA PACKET");
+      return;
+    }
+
+    setStatus("connecting");
+    addLog("ESTABLISHING ENCRYPTED LINK...");
+    
+    setTimeout(() => {
+      setStatus("transmitting");
+      addLog("UPLOADING NEURAL DATA...");
       
-      {/* Decorative vertical gradient lines in background (matching reference) */}
-      <div className="absolute inset-0 pointer-events-none opacity-20 flex justify-evenly -z-10">
-        <div className="w-[1px] h-full bg-gradient-to-b from-transparent via-accent to-transparent"></div>
-        <div className="w-[1px] h-full bg-gradient-to-b from-transparent via-accent to-transparent"></div>
-        <div className="w-[1px] h-full bg-gradient-to-b from-transparent via-accent to-transparent"></div>
-        <div className="w-[1px] h-full bg-gradient-to-b from-transparent via-accent to-transparent"></div>
+      setTimeout(() => {
+        setStatus("received");
+        addLog("TRANSMISSION SUCCESSFUL.");
+        addLog("SIGNAL LOGGED.");
+        setMessage("");
+        setEmail("");
+      }, 2000);
+    }, 1500);
+  };
+
+  useEffect(() => {
+    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [terminalLogs]);
+
+  return (
+    <section id="contact" className="w-full relative bg-[#050505] text-white flex flex-col pt-32 pb-8 px-6 md:px-12 lg:px-24 overflow-hidden font-inter z-10">
+      
+      {/* Decorative Grid Background */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
       </div>
 
-      {/* TOP SECTION: Header & CTA */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full mb-16 md:mb-24 gap-8">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-orbitron font-bold tracking-wide">
-          Get started today
-        </h2>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 relative z-10">
         
-        <a href="mailto:hello@zenous.dev" className="flex items-center gap-1 group cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
-          <div className="bg-accent text-[#050505] font-orbitron font-bold text-xs md:text-sm tracking-widest uppercase px-6 md:px-8 py-4 pointer-events-none">
-            Book A Demo
-          </div>
-          <div className="bg-accent text-[#050505] px-4 py-4 flex items-center justify-center pointer-events-none">
-            <svg className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </div>
-        </a>
-      </div>
-
-      {/* MIDDLE SECTION: Massive Logo */}
-      <div className="flex flex-col md:flex-row items-center justify-center md:justify-start w-full mb-16 md:mb-24 overflow-hidden">
-        {/* Three Slanted Bars */}
-        <div className="flex gap-2 md:gap-4 mr-4 md:mr-8 h-[12vw] min-h-[80px]">
-          <div className="w-[4vw] min-w-[20px] h-full bg-accent transform -skew-x-[20deg]"></div>
-          <div className="w-[4vw] min-w-[20px] h-full bg-accent transform -skew-x-[20deg]"></div>
-          <div className="w-[4vw] min-w-[20px] h-full bg-accent transform -skew-x-[20deg]"></div>
-        </div>
-        
-        {/* Massive Text */}
-        <h1 className="text-[18vw] leading-none font-orbitron font-bold tracking-tighter lowercase select-none">
-          zenous
-        </h1>
-      </div>
-
-      {/* INFO GRID SECTION */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-24 w-full">
-        
-        {/* Col 1: Bio */}
-        <div className="flex flex-col text-[#888888] text-sm md:text-base leading-relaxed pr-4">
-          <p>
-            AI agents and high-performance interfaces to help you build faster and ship better.
-          </p>
-        </div>
-
-        {/* Col 2: Contact Info */}
-        <div className="flex flex-col text-[#888888] text-xs md:text-sm gap-6">
+        {/* Left Column: Branding & Info */}
+        <div className="lg:col-span-5 flex flex-col justify-between">
           <div>
-            <h4 className="text-white font-orbitron font-bold tracking-widest uppercase mb-4 text-xs">Contact Us</h4>
-            <p>123 Innovation Drive</p>
-            <p>San Francisco, CA 94107</p>
-          </div>
-          <div>
-            <a href="mailto:hello@zenous.dev" className="hover:text-white transition-colors">hello@zenous.dev</a>
-          </div>
-        </div>
-
-        {/* Col 3: Badge */}
-        <div className="flex items-start justify-start lg:justify-center">
-          <a href="mailto:hello@zenous.dev" className="w-24 h-24 md:w-32 md:h-32 rounded-full border border-[#333333] flex items-center justify-center relative overflow-hidden group cursor-pointer hover:border-accent transition-colors">
-            <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="text-center font-orbitron text-[10px] md:text-xs text-[#888888] group-hover:text-white transition-colors">
-              <span className="block mb-1">AVAILABLE</span>
-              <span className="block font-bold text-white text-sm md:text-base">HIRE</span>
-              <span className="block mt-1">2026</span>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-8 h-[1px] bg-[var(--accent)]"></div>
+              <span className="font-orbitron text-[10px] tracking-[0.4em] text-[var(--accent)] uppercase">Comm-Link: Initialized</span>
             </div>
-          </a>
-        </div>
+            
+            <h2 className="text-5xl md:text-7xl font-orbitron font-bold tracking-tighter mb-8 leading-none">
+              READY TO <br />
+              <span className="text-transparent" style={{ WebkitTextStroke: '1px white' }}>UPGRADE?</span>
+            </h2>
+            
+            <p className="text-[#888888] text-sm md:text-base leading-relaxed max-w-md mb-12">
+              Whether you need a high-performance interface, an AI-driven solution, or a complete digital overhaul, the signal is open.
+            </p>
 
-        {/* Col 4: Newsletter Input */}
-        <div className="flex flex-col">
-          <h4 className="text-white font-orbitron font-bold tracking-widest uppercase mb-4 text-xs">Stay Up To Date</h4>
-          <div className="flex w-full h-12 border border-[#333333] focus-within:border-accent transition-colors overflow-hidden">
-            <input 
-              type="email" 
-              placeholder="Enter your email" 
-              className="bg-transparent flex-1 px-4 outline-none text-sm text-white placeholder-[#555555]"
-            />
-            <button className="bg-white text-black font-orbitron font-bold text-[10px] md:text-xs uppercase px-4 md:px-6 hover:bg-accent hover:text-black transition-colors">
-              Submit
-            </button>
+            <div className="flex flex-col gap-6 mb-16">
+              <div className="flex items-center gap-4 group cursor-pointer">
+                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[var(--accent)] group-hover:shadow-[0_0_10px_var(--accent)] transition-all">
+                  <svg className="w-4 h-4 text-[#444] group-hover:text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <span className="text-[#888888] font-orbitron text-xs tracking-widest uppercase group-hover:text-white transition-colors">hello@zenous.dev</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden lg:block">
+             <h1 className="text-[10vw] leading-none font-orbitron font-bold tracking-tighter lowercase opacity-5 select-none hover:opacity-10 transition-opacity duration-700">
+               zenous
+             </h1>
           </div>
         </div>
 
+        {/* Right Column: Terminal Interface */}
+        <div className="lg:col-span-7">
+          <div className="relative group">
+            {/* Terminal Frame Decor */}
+            <div className="absolute -top-4 -left-4 w-12 h-12 border-t border-l border-white/10 pointer-events-none group-hover:border-[var(--accent)]/40 transition-colors"></div>
+            <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b border-r border-white/10 pointer-events-none group-hover:border-[var(--accent)]/40 transition-colors"></div>
+
+            <div className="bg-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden shadow-2xl relative group-hover:border-[var(--accent)]/20 transition-all duration-500">
+              {/* Terminal Header */}
+              <div className="bg-[#111] border-b border-white/5 px-6 py-3 flex items-center justify-between">
+                <div className="flex gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#ef4444]/40"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#eab308]/40"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#22c55e]/40"></div>
+                </div>
+                <div className="font-orbitron text-[9px] tracking-[0.2em] text-[#444] uppercase">Secure Transmission Portal v4.0</div>
+              </div>
+
+              {/* Terminal Output */}
+              <div className="p-6 h-32 overflow-hidden font-mono text-[10px] text-[#444] bg-black/40">
+                {terminalLogs.map((log, i) => (
+                  <div key={i} className={`mb-1 ${i === terminalLogs.length - 1 ? 'text-[var(--accent)] animate-pulse' : ''}`}>
+                    {log}
+                  </div>
+                ))}
+                <div ref={terminalEndRef}></div>
+              </div>
+
+              {/* Terminal Form */}
+              <form onSubmit={handleTransmit} className="p-8 space-y-8">
+                <div className="relative">
+                  <label className="absolute -top-2 left-4 bg-[#0a0a0a] px-2 font-orbitron text-[9px] tracking-[0.2em] text-[#444] uppercase z-10 group-focus-within:text-[var(--accent)] transition-colors">Encryption Key (Email)</label>
+                  <input 
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="USER@NETWORK.COM"
+                    className="w-full bg-transparent border border-white/5 rounded-lg px-6 py-4 outline-none focus:border-[var(--accent)]/50 transition-all font-mono text-sm text-[var(--accent)] placeholder-[#222]"
+                    disabled={status !== "idle"}
+                  />
+                </div>
+
+                <div className="relative">
+                  <label className="absolute -top-2 left-4 bg-[#0a0a0a] px-2 font-orbitron text-[9px] tracking-[0.2em] text-[#444] uppercase z-10 group-focus-within:text-[var(--accent)] transition-colors">Signal Data (Message)</label>
+                  <textarea 
+                    rows={4}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="DESCRIBE_YOUR_OBJECTIVE..."
+                    className="w-full bg-transparent border border-white/5 rounded-lg px-6 py-4 outline-none focus:border-[var(--accent)]/50 transition-all font-mono text-sm text-[var(--accent)] placeholder-[#222] resize-none"
+                    disabled={status !== "idle"}
+                  />
+                </div>
+
+                <button 
+                  type="submit"
+                  disabled={status !== "idle"}
+                  className={`w-full py-5 rounded-lg font-orbitron font-bold tracking-[0.3em] uppercase transition-all duration-300 relative overflow-hidden flex items-center justify-center gap-4
+                    ${status === "idle" ? 'bg-white text-black hover:bg-[var(--accent)]' : 'bg-[#111] text-[#444] cursor-not-allowed'}
+                  `}
+                >
+                  <AnimatePresence mode="wait">
+                    {status === "idle" && (
+                      <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>Initiate Transmission</motion.span>
+                    )}
+                    {status === "connecting" && (
+                      <motion.div key="connecting" className="flex items-center gap-3">
+                         <div className="w-3 h-3 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin"></div>
+                         <span>Establishing...</span>
+                      </motion.div>
+                    )}
+                    {status === "transmitting" && (
+                      <motion.span key="transmitting" className="animate-pulse">Uploading...</motion.span>
+                    )}
+                    {status === "received" && (
+                      <motion.span key="received" initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="text-[var(--accent)]">SIGNAL_LOGGED</motion.span>
+                    )}
+                  </AnimatePresence>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* FOOTER LINKS */}
-      <div className="w-full flex flex-col items-center">
-        <div className="w-full h-[1px] bg-[#333333] mb-8"></div>
+      {/* Footer Branding */}
+      <div className="w-full flex flex-col items-center mt-32">
+        <div className="w-full h-[1px] bg-white/5 mb-12"></div>
         
-        <div className="w-full flex flex-wrap justify-between items-center gap-8 mb-12">
-          <div className="flex flex-wrap gap-6 md:gap-12 font-orbitron text-[10px] md:text-xs font-bold tracking-widest uppercase text-[#888888]">
-            <a href="#" className="hover:text-white transition-colors">Home</a>
-            <a href="#about" className="hover:text-white transition-colors">About</a>
-            <a href="#projects" className="hover:text-white transition-colors">Projects</a>
-            <a href="https://github.com/Zenous07" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Github</a>
-            <a href="https://www.linkedin.com/in/bennettjoshuaa" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="https://leetcode.com/u/BennettJoshua/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LeetCode</a>
+        <div className="w-full flex flex-wrap justify-between items-center gap-8 mb-16">
+          <div className="flex flex-wrap gap-6 md:gap-12 font-orbitron text-[10px] font-bold tracking-[0.2em] uppercase text-[#444]">
+            {['Home', 'About', 'Projects', 'Github', 'LinkedIn', 'LeetCode'].map((link) => (
+              <a key={link} href={`#${link.toLowerCase()}`} className="hover:text-[var(--accent)] transition-colors">{link}</a>
+            ))}
+          </div>
+          <div className="text-[9px] font-orbitron tracking-[0.4em] text-[#333] uppercase">
+            EST. 2026 // NEURAL_NET_SECURE
           </div>
         </div>
         
-        <div className="w-full flex justify-between items-center text-[10px] md:text-xs text-[#555555] font-inter">
-          <p>© Zenous. All Rights Reserved 2026</p>
-          <p>Site by Zenous</p>
+        <div className="w-full flex justify-between items-center text-[9px] text-[#444] font-orbitron tracking-[0.2em] uppercase">
+          <p>© ZEOUS_LABS</p>
+          <div className="flex items-center gap-4">
+             <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]/40 shadow-[0_0_5px_var(--accent)]"></span>
+             <span>System Online</span>
+          </div>
         </div>
       </div>
 

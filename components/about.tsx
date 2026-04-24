@@ -1,171 +1,146 @@
 "use client";
 
-import React from 'react';
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
 import Image from 'next/image';
 
+const STATS = [
+  { label: "Frontend", value: 95, icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
+  { label: "Backend", value: 88, icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" },
+  { label: "DevOps", value: 82, icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" },
+  { label: "Design", value: 90, icon: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" },
+];
+
 export default function About() {
+  const [selectedStat, setSelectedStat] = useState<number | null>(null);
+
   return (
     <section id="about" className="w-full min-h-screen relative bg-[#050505] flex flex-col justify-between p-8 md:p-16 lg:p-24 overflow-hidden text-[#888888]">
       
-      {/* Background Character Image */}
-      <Image 
-        src="/assets/aboutusChar.png" 
-        alt="About Me Character" 
-        fill
-        className="object-contain scale-95 opacity-30 z-0 pointer-events-none"
-        priority
-      />
+      {/* Background Character Image with Neural Overlay */}
+      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none overflow-hidden">
+        <Image 
+          src="/assets/aboutusChar.png" 
+          alt="About Me Character" 
+          fill
+          className="object-contain scale-110 md:scale-100 translate-x-[10%] opacity-50"
+          priority
+        />
+        {/* Neural Grid Overlay */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]"></div>
+      </div>
 
-      {/* Top Header Row */}
+      {/* Top Header Row - Character Identity */}
       <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="flex flex-col md:flex-row justify-between items-start w-full relative z-10"
       >
-        {/* Left: Giant Title */}
         <div className="flex flex-col">
-          <h2 className="font-orbitron font-bold text-[3rem] md:text-[5rem] lg:text-[6rem] text-[var(--accent)] leading-[1.05] uppercase tracking-wide">
-            About Me <span className="text-[var(--accent)]/70">//</span><br />
-            Full Stack<br />
-            Developer
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse shadow-[0_0_8px_var(--accent)]"></span>
+            <span className="font-orbitron text-[10px] tracking-[0.4em] text-[var(--accent)] uppercase">Subject: Bennett Joshua</span>
+          </div>
+          <h2 className="font-orbitron font-bold text-[3.5rem] md:text-[6rem] lg:text-[7rem] text-white leading-[0.9] uppercase tracking-tighter">
+            SYSTEM <span className="text-transparent" style={{ WebkitTextStroke: '1px var(--accent)' }}>SYNC</span>
           </h2>
           
-          {/* Paragraph below title */}
-          <div className="max-w-md mt-6 md:mt-10 font-inter text-[#888888] text-sm md:text-base leading-relaxed">
-            Engineered with precision and a passion for scalable architectures. I don't just write code—I build digital realities. Shift your perspective.
-          </div>
-
-          {/* 3 Icons below paragraph */}
-          <div className="flex gap-4 mt-8 md:mt-12">
-            <div className="w-12 h-12 rounded-full border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] hover:border-[var(--accent)] hover:shadow-[0_0_15px_rgba(212,147,83,0.3)] transition-all cursor-pointer active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
-              {/* Icon 1: Hexagon/Code */}
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-              </svg>
-            </div>
-            <div className="w-12 h-12 rounded-full border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] hover:border-[var(--accent)] hover:shadow-[0_0_15px_rgba(212,147,83,0.3)] transition-all cursor-pointer active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
-              {/* Icon 2: Database/Server */}
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-              </svg>
-            </div>
-            <div className="w-12 h-12 rounded-full border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] hover:border-[var(--accent)] hover:shadow-[0_0_15px_rgba(212,147,83,0.3)] transition-all cursor-pointer active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
-              {/* Icon 3: Sparkle */}
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-              </svg>
-            </div>
+          <div className="max-w-md mt-8 font-inter text-[#888888] text-sm md:text-base leading-relaxed border-l-2 border-[var(--accent)]/30 pl-6">
+            Engineered with precision and a passion for scalable architectures. I bridge the gap between human imagination and machine execution.
           </div>
         </div>
 
-        {/* Right: Pagination & Tech Specs Table */}
-        <div className="flex flex-col items-end mt-16 md:mt-0 w-full md:w-auto relative z-10">
-          {/* Pagination */}
-          <div className="flex items-center gap-6 text-[var(--accent)] font-inter text-xs md:text-sm font-medium tracking-widest uppercase">
-            <span>01/03</span>
-            <div className="w-16 md:w-24 h-[1px] bg-[var(--accent)]/30 relative rounded-full overflow-hidden">
-               <div className="absolute left-0 top-0 h-full w-1/3 bg-[var(--accent)] shadow-[0_0_8px_rgba(212,147,83,0.8)]"></div>
-            </div>
-            <span>Experience</span>
-          </div>
-
-          {/* Technical Skills Table */}
-          <div className="mt-24 md:mt-40 w-full md:w-[400px]">
-             <h3 className="font-orbitron text-[var(--accent)] tracking-widest font-bold mb-6 text-sm md:text-base uppercase flex items-center gap-2">
-                Technical Skills
-             </h3>
-             <div className="flex flex-col w-full border-t border-[var(--accent)]/20 text-xs md:text-sm font-inter tracking-wide">
-                {[
-                  { label: "Frontend", value: "React, Next.js, Tailwind" },
-                  { label: "Backend", value: "Node.js, Python, REST" },
-                  { label: "Database", value: "PostgreSQL, MongoDB" },
-                  { label: "Build", value: "Docker, Git, CI/CD" },
-                ].map((item, i) => (
-                  <div key={i} className="flex justify-between py-4 border-b border-[var(--accent)]/20 hover:bg-[var(--accent)]/[0.02] transition-colors">
-                    <span className="text-[#888888]">{item.label}</span>
-                    <span className="text-[var(--accent)] text-right">{item.value}</span>
+        {/* Right: Technical Stats - Character Attributes */}
+        <div className="mt-16 md:mt-0 w-full md:w-[350px] lg:w-[450px]">
+          <h3 className="font-orbitron text-[var(--accent)] tracking-[0.3em] font-bold mb-8 text-[10px] uppercase flex items-center gap-2">
+            // NEURAL_COMPETENCIES
+          </h3>
+          <div className="space-y-6">
+            {STATS.map((stat, i) => (
+              <div 
+                key={i} 
+                className="group cursor-pointer"
+                onMouseEnter={() => setSelectedStat(i)}
+                onMouseLeave={() => setSelectedStat(null)}
+              >
+                <div className="flex justify-between items-end mb-2">
+                  <div className="flex items-center gap-3">
+                    <svg className={`w-4 h-4 transition-colors duration-300 ${selectedStat === i ? 'text-[var(--accent)]' : 'text-[#444]'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={stat.icon} />
+                    </svg>
+                    <span className={`font-orbitron text-[10px] tracking-[0.2em] uppercase transition-colors duration-300 ${selectedStat === i ? 'text-white' : 'text-[#666]'}`}>
+                      {stat.label}
+                    </span>
                   </div>
-                ))}
-             </div>
+                  <span className="font-orbitron text-[10px] text-[var(--accent)]">{stat.value}%</span>
+                </div>
+                <div className="h-[2px] w-full bg-white/5 relative overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${stat.value}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, ease: "circOut", delay: i * 0.1 }}
+                    className="absolute top-0 left-0 h-full bg-[var(--accent)] shadow-[0_0_10px_var(--accent)]"
+                  />
+                  {selectedStat === i && (
+                    <motion.div 
+                      layoutId="stat-glow"
+                      className="absolute top-0 left-0 h-full w-full bg-white/10 blur-sm"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    />
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </motion.div>
 
-      {/* Bottom Row */}
+      {/* Bottom Row - Equipment / Tools */}
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-        className="flex flex-col md:flex-row justify-between items-end w-full mt-24 mb-8 md:mb-0 relative z-20"
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+        className="flex flex-col lg:flex-row justify-between items-end w-full mt-24 mb-4 relative z-20 gap-12"
       >
-        
-        {/* Bottom Left Card */}
-        <div className="w-full md:w-[460px] rounded-3xl border border-[var(--accent)]/20 bg-[#050505]/80 backdrop-blur-md p-6 lg:p-8 flex gap-6 relative group hover:border-[var(--accent)]/50 transition-colors duration-500 shadow-2xl">
-          {/* Subtle bg glow */}
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-[var(--accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          {/* Image Placeholder */}
-          <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-gradient-to-tr from-[var(--accent)]/10 to-transparent border border-[var(--accent)]/20 flex-shrink-0 flex items-center justify-center overflow-hidden shadow-inner font-orbitron text-[var(--accent)]/30 text-xs text-center p-2">
-             <div className="absolute inset-0 bg-[#050505]/50"></div>
-             <span className="relative z-10">[ IMG_CORE ]</span>
-             {/* Small glowing dot */}
-             <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_rgba(212,147,83,0.8)]"></div>
+        {/* Bio Card / Mission Log */}
+        <div className="w-full lg:w-[500px] rounded-2xl border border-white/5 bg-[#0a0a0a]/60 backdrop-blur-xl p-8 relative overflow-hidden group hover:border-[var(--accent)]/30 transition-all duration-500">
+          <div className="absolute top-0 right-0 p-3 opacity-20">
+             <svg className="w-12 h-12 text-[var(--accent)]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L1 21h22L12 2zm0 3.45l8.15 14.1H3.85L12 5.45z" />
+             </svg>
           </div>
           
-          {/* Card Content */}
-          <div className="flex flex-col justify-center font-inter z-10">
-            <h4 className="text-[var(--accent)] font-orbitron font-bold tracking-widest text-xs md:text-sm mb-2 md:mb-3 uppercase">
-              CS-01: Current Focus
-            </h4>
-            <p className="text-[#888888] text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
-              Building high-performance AI interfaces and scalable next-generation platforms.
-            </p>
-            <div className="flex items-center">
-              <button className="px-5 py-2 rounded-full border border-[var(--accent)]/30 text-[var(--accent)] text-xs font-medium hover:bg-[var(--accent)] hover:text-[#050505] transition-all duration-[160ms] ease-[var(--ease-ui)] tracking-wider uppercase active:scale-[0.97]">
-                Add to Cart
-              </button>
-            </div>
+          <h4 className="text-[var(--accent)] font-orbitron font-bold tracking-[0.3em] text-[10px] mb-6 uppercase">
+            [ MISSION_LOG_01 ]
+          </h4>
+          <p className="text-[#888888] font-inter text-sm leading-relaxed mb-8 italic">
+            "The objective is not just to build, but to optimize. Every line of code is a synapse in a larger digital consciousness. Currently focusing on the intersection of AI integration and high-fidelity user experiences."
+          </p>
+          
+          <div className="flex items-center gap-4">
+             <div className="px-4 py-1.5 rounded-sm border border-[var(--accent)]/30 text-[var(--accent)] text-[9px] font-orbitron tracking-[0.2em] uppercase bg-[var(--accent)]/5">
+                STATUS: ACTIVE
+             </div>
+             <div className="px-4 py-1.5 rounded-sm border border-white/10 text-[#555] text-[9px] font-orbitron tracking-[0.2em] uppercase">
+                LVL: 24_ENGINEER
+             </div>
           </div>
         </div>
 
-        {/* Bottom Right Connected Pills */}
-        <div className="hidden lg:flex items-center gap-0 mt-12 md:mt-0 font-inter text-[10px] md:text-xs tracking-widest uppercase text-[#888888] relative">
-           
-           <div className="px-5 py-2.5 border border-[var(--accent)]/20 rounded-full hover:text-[var(--accent)] hover:border-[var(--accent)]/60 hover:shadow-[0_0_10px_rgba(212,147,83,0.15)] transition-all cursor-pointer bg-[#050505] z-10 relative active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
-             REACT
-           </div>
-           
-           <div className="w-8 h-[1px] bg-[var(--accent)]/20 -mx-2 z-0"></div>
-
-           <div className="px-5 py-2.5 border border-[var(--accent)]/20 rounded-full text-white border-[var(--accent)]/50 shadow-[0_0_10px_rgba(212,147,83,0.1)] transition-all cursor-pointer bg-[#050505] z-10 relative active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
-             NEXT.JS
-           </div>
-           
-           <div className="w-8 h-[1px] bg-[var(--accent)]/20 -mx-2 z-0"></div>
-           
-           <div className="px-5 py-2.5 border border-[var(--accent)]/20 rounded-full hover:text-[var(--accent)] hover:border-[var(--accent)]/60 transition-all cursor-pointer bg-[#050505] z-10 relative active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
-             TYPESCRIPT
-           </div>
-
-           <div className="w-8 h-[1px] bg-[var(--accent)]/20 -mx-2 z-0"></div>
-
-           <div className="px-5 py-2.5 border border-[var(--accent)]/20 rounded-full hover:text-[var(--accent)] hover:border-[var(--accent)]/60 transition-all cursor-pointer bg-[#050505] z-10 relative active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
-             TAILWIND
-           </div>
-           
-           {/* Star connection */}
-           <div className="w-6 h-[1px] bg-[var(--accent)]/20 -ml-1 z-0"></div>
-           
-           {/* 4-point Diamond Star */}
-           <div className="text-[#888888] flex items-center justify-center animate-pulse relative z-10 -ml-2">
-             <svg className="w-8 h-8 md:w-10 md:h-10 text-[var(--accent)]" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-             </svg>
-           </div>
+        {/* Tech Loadout Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full lg:w-auto">
+          {['React', 'Next.js', 'Node.js', 'PostgreSQL'].map((tech, i) => (
+            <div key={i} className="px-6 py-4 bg-[#0a0a0a] border border-white/5 rounded-xl flex flex-col items-center justify-center group hover:border-[var(--accent)]/40 transition-all duration-300">
+              <span className="text-[#444] font-orbitron text-[8px] mb-2 uppercase tracking-widest group-hover:text-[var(--accent)]/50">Module</span>
+              <span className="text-white font-orbitron text-xs tracking-widest uppercase group-hover:text-[var(--accent)] transition-colors">{tech}</span>
+            </div>
+          ))}
         </div>
       </motion.div>
 

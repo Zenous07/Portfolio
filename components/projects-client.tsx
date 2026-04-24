@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import BorderGlow from './border-glow';
 import { motion } from "framer-motion";
+import ProjectDetail from './project-detail';
 
 export default function ProjectsClient({ repos }: { repos: any[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -11,6 +12,7 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
   const [containerHeight, setContainerHeight] = useState('300vh');
   const [accentColor, setAccentColor] = useState('#d49353');
   const [mounted, setMounted] = useState(false);
+  const [selectedRepo, setSelectedRepo] = useState<any>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -96,12 +98,10 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
         >
           {repos.length > 0 ? (
             repos.map((repo: any) => (
-              <a 
+              <button 
                 key={repo.id} 
-                href={repo.html_url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="shrink-0 group overflow-visible relative flex h-full active:scale-[0.98] transition-transform duration-[200ms] ease-[var(--ease-ui)] snap-center"
+                onClick={() => setSelectedRepo(repo)}
+                className="shrink-0 group overflow-visible relative flex h-full active:scale-[0.98] transition-transform duration-[200ms] ease-[var(--ease-ui)] snap-center text-left"
               >
                 <BorderGlow 
                   className="w-[300px] md:w-[450px] shrink-0 p-8 h-full"
@@ -110,30 +110,39 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
                   colors={[accentColor, '#eab308', '#888888']}
                   animated={true}
                 >
-                  <h3 className="text-2xl font-semibold mb-4 group-hover:text-[var(--accent)] transition-colors font-orbitron truncate">{repo.name}</h3>
-                  <p className="text-[#888888] text-sm md:text-base mb-6 line-clamp-3 md:line-clamp-4 flex-1 font-inter leading-relaxed">
-                    {repo.description || 'No description provided.'}
-                  </p>
-                  <div className="flex items-center gap-6 text-sm text-[#555555] mt-auto font-inter border-t border-white/5 pt-4">
-                    <span className="flex items-center gap-2">
-                      <span className="w-3 h-3 rounded-full bg-[var(--accent)] inline-block shadow-[0_0_8px_rgba(212,147,83,0.8)]"></span>
-                      {repo.language || 'Code'}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      ⭐ {repo.stargazers_count}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      🍴 {repo.forks_count}
-                    </span>
+                  <div className="flex flex-col h-full">
+                    <h3 className="text-2xl font-semibold mb-4 group-hover:text-[var(--accent)] transition-colors font-orbitron truncate">{repo.name}</h3>
+                    <p className="text-[#888888] text-sm md:text-base mb-6 line-clamp-3 md:line-clamp-4 flex-1 font-inter leading-relaxed">
+                      {repo.description || 'No description provided.'}
+                    </p>
+                    <div className="flex items-center gap-6 text-sm text-[#555555] mt-auto font-inter border-t border-white/5 pt-4">
+                      <span className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-[var(--accent)] inline-block shadow-[0_0_8px_rgba(212,147,83,0.8)]"></span>
+                        {repo.language || 'Code'}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        ⭐ {repo.stargazers_count}
+                      </span>
+                      <div className="ml-auto text-[10px] font-orbitron tracking-widest text-[var(--accent)]/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                         DIAGNOSTIC →
+                      </div>
+                    </div>
                   </div>
                 </BorderGlow>
-              </a>
+              </button>
             ))
           ) : (
             <div className="text-[#888888] font-inter">Loading or no public repositories found...</div>
           )}
         </motion.div>
       </div>
+
+      <ProjectDetail 
+        repo={selectedRepo} 
+        isOpen={!!selectedRepo} 
+        onClose={() => setSelectedRepo(null)} 
+        accentColor={accentColor}
+      />
     </section>
   );
 }
