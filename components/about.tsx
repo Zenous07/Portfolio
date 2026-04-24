@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from 'next/image';
 
 const STATS = [
-  { label: "Frontend", value: 95, icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
-  { label: "Backend", value: 88, icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" },
-  { label: "DevOps", value: 82, icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" },
-  { label: "Design", value: 90, icon: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" },
+  { label: "Web Architecture", value: 95, icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
+  { label: "Data & Intelligence", value: 88, icon: "M9 19v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" },
+  { label: "Electronics Design", value: 85, icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+  { label: "Simulation & CAD", value: 82, icon: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" },
 ];
 
 export default function About() {

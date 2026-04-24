@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Hero from "@/components/hero";
 import About from "@/components/about";
 import Skills from "@/components/skills";
+import CareerPath from "@/components/career-path";
 import ProjectsClient from "@/components/projects-client";
 import LeetcodeClient from "@/components/leetcode-client";
 import Contact from "@/components/contact";
@@ -35,6 +36,7 @@ export default function HomeClient({ repos, leetcodeData }: { repos: any[], leet
           <Hero />
           <About />
           <Skills />
+          <CareerPath />
           <ProjectsClient repos={repos} />
           <LeetcodeClient data={leetcodeData} />
           <Contact />

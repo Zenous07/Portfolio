@@ -4,12 +4,24 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const SKILLS = [
-  { id: 'react', label: 'React', x: 50, y: 30, size: 45, connections: ['nextjs', 'tailwind', 'typescript'] },
-  { id: 'nextjs', label: 'Next.js', x: 20, y: 50, size: 50, connections: ['react', 'node', 'tailwind'] },
-  { id: 'typescript', label: 'TypeScript', x: 80, y: 50, size: 40, connections: ['react', 'node'] },
-  { id: 'node', label: 'Node.js', x: 50, y: 70, size: 45, connections: ['nextjs', 'typescript', 'postgres'] },
-  { id: 'tailwind', label: 'Tailwind', x: 20, y: 20, size: 35, connections: ['react', 'nextjs'] },
-  { id: 'postgres', label: 'PostgreSQL', x: 80, y: 80, size: 35, connections: ['node'] },
+  // Web Cluster
+  { id: 'react', label: 'React', x: 20, y: 30, size: 45, connections: ['nextjs', 'tailwind', 'astro'] },
+  { id: 'nextjs', label: 'Next.js', x: 10, y: 50, size: 50, connections: ['react', 'tailwind', 'prisma'] },
+  { id: 'astro', label: 'Astro', x: 20, y: 70, size: 40, connections: ['react', 'tailwind'] },
+  { id: 'tailwind', label: 'Tailwind', x: 5, y: 20, size: 35, connections: ['react', 'nextjs', 'astro'] },
+  
+  // Data & AI Cluster
+  { id: 'python', label: 'Python', x: 50, y: 30, size: 48, connections: ['sklearn', 'sql', 'matlab'] },
+  { id: 'sklearn', label: 'Scikit-Learn', x: 40, y: 50, size: 42, connections: ['python'] },
+  { id: 'sql', label: 'SQL', x: 60, y: 50, size: 40, connections: ['python', 'postgres', 'prisma'] },
+  { id: 'postgres', label: 'Postgres', x: 50, y: 70, size: 42, connections: ['sql', 'prisma'] },
+  { id: 'prisma', label: 'Prisma', x: 30, y: 50, size: 38, connections: ['nextjs', 'sql', 'postgres'] },
+
+  // Engineering Cluster
+  { id: 'ansys', label: 'Ansys', x: 80, y: 30, size: 45, connections: ['matlab', 'solidworks'] },
+  { id: 'cadence', label: 'Cadence', x: 90, y: 50, size: 42, connections: ['matlab'] },
+  { id: 'matlab', label: 'Matlab', x: 80, y: 70, size: 48, connections: ['python', 'ansys', 'cadence'] },
+  { id: 'solidworks', label: 'SolidWorks', x: 70, y: 50, size: 40, connections: ['ansys'] },
 ];
 
 export default function SkillsGraph() {

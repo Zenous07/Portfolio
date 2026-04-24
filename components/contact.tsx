@@ -69,6 +69,48 @@ export default function Contact() {
               Whether you need a high-performance interface, an AI-driven solution, or a complete digital overhaul, the signal is open.
             </p>
 
+            <div className="grid grid-cols-2 gap-8 mb-16">
+              <div>
+                <h4 className="font-orbitron text-[9px] tracking-[0.3em] text-[#444] uppercase mb-6">// Neural_Directory</h4>
+                <ul className="space-y-4">
+                  {[
+                    { label: 'System_Init', href: '#home' },
+                    { label: 'Core_Identity', href: '#about' },
+                    { label: 'Neural_Graph', href: '#skills' },
+                    { label: 'Career_Path', href: '#experience' },
+                    { label: 'Project_Repo', href: '#projects' },
+                  ].map((link) => (
+                    <li key={link.label}>
+                      <a href={link.href} className="text-[#888] font-orbitron text-[10px] tracking-widest uppercase hover:text-[var(--accent)] transition-colors flex items-center gap-2 group/link">
+                        <span className="w-1 h-1 rounded-full bg-white/10 group-hover/link:bg-[var(--accent)] transition-colors"></span>
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-orbitron text-[9px] tracking-[0.3em] text-[#444] uppercase mb-6">// External_Nodes</h4>
+                <ul className="space-y-4">
+                  {[
+                    { label: 'LinkedIn', href: 'https://linkedin.com/in/bennett-joshua' },
+                    { label: 'GitHub', href: 'https://github.com/Zenous07' },
+                    { label: 'LeetCode', href: 'https://leetcode.com/BennettJoshua' },
+                    { label: 'Download_CV', href: '#' },
+                  ].map((link) => (
+                    <li key={link.label}>
+                      <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-[#888] font-orbitron text-[10px] tracking-widest uppercase hover:text-white transition-colors flex items-center gap-2 group/link">
+                        <svg className="w-3 h-3 opacity-30 group-hover/link:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
             <div className="flex flex-col gap-6 mb-16">
               <div className="flex items-center gap-4 group cursor-pointer">
                 <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[var(--accent)] group-hover:shadow-[0_0_10px_var(--accent)] transition-all">
@@ -76,7 +118,7 @@ export default function Contact() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <span className="text-[#888888] font-orbitron text-xs tracking-widest uppercase group-hover:text-white transition-colors">hello@zenous.dev</span>
+                <span className="text-[#888888] font-orbitron text-xs tracking-widest uppercase group-hover:text-white transition-colors">bennett.joshua@outlook.com</span>
               </div>
             </div>
           </div>
