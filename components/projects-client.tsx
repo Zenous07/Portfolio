@@ -126,10 +126,13 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
         >
           {repos.length > 0 ? (
             repos.map((repo: any) => (
-              <button 
+              <motion.div 
                 key={repo.id} 
                 onClick={() => setSelectedRepo(repo)}
-                className="shrink-0 group overflow-visible relative flex h-full active:scale-[0.98] transition-transform duration-[200ms] ease-[var(--ease-ui)] snap-center text-left"
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedRepo(repo); }}
+                tabIndex={0}
+                role="button"
+                className="shrink-0 group overflow-visible relative flex h-full active:scale-[0.98] transition-transform duration-[200ms] ease-[var(--ease-ui)] snap-center text-left cursor-pointer outline-none focus:ring-1 focus:ring-[var(--accent)]/50 rounded-xl"
               >
                 <BorderGlow 
                   className="w-[300px] md:w-[450px] shrink-0 p-8 h-full"
@@ -157,7 +160,7 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
                     </div>
                   </div>
                 </BorderGlow>
-              </button>
+              </motion.div>
             ))
           ) : (
             <div className="text-[#888888] font-inter">Loading or no public repositories found...</div>

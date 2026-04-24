@@ -19,10 +19,31 @@ export default function HomeClient({ repos, leetcodeData }: { repos: any[], leet
   // Z-E-N-O-U-S Easter Egg
   const konami = useKonamiCode(['z','e','n','o','u','s']);
 
+  React.useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
   useEffect(() => {
+    // Only force scroll to top once on initial mount to counteract browser restoration
+    const forceTop = () => {
+      window.scrollTo(0, 0);
+      if (typeof document !== 'undefined') {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }
+    };
+
+    forceTop();
+    const timer = setTimeout(forceTop, 150);
+
     const handleDevModeToggle = () => setIsDevMode(true);
     window.addEventListener('toggleDevMode', handleDevModeToggle);
-    return () => window.removeEventListener('toggleDevMode', handleDevModeToggle);
+    return () => {
+      window.removeEventListener('toggleDevMode', handleDevModeToggle);
+      clearTimeout(timer);
+    };
   }, []);
 
   return (

@@ -38,9 +38,17 @@ export default function Contact() {
     }, 1500);
   };
 
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [terminalLogs]);
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      terminalEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [terminalLogs, isMounted]);
 
   return (
     <section id="contact" className="w-full relative bg-[#050505] text-white flex flex-col pt-32 pb-8 px-6 md:px-12 lg:px-24 overflow-hidden font-inter z-10">
