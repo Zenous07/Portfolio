@@ -37,7 +37,7 @@ export default async function Leetcode() {
       {/* Interactive WebGL Background */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
         <PixelBlast
-          color="#d49353"
+          color="var(--accent)"
           pixelSize={4}
           variant="diamond"
           patternScale={2}
@@ -56,33 +56,33 @@ export default async function Leetcode() {
         
         {/* Header */}
         <div className="text-center mb-16 md:mb-24 flex flex-col items-center">
-          <h2 className="text-4xl md:text-6xl font-bold font-orbitron tracking-[0.15em] text-[#d49353] uppercase drop-shadow-[0_0_20px_rgba(212,147,83,0.5)]">
+          <h2 className="text-4xl md:text-6xl font-bold font-orbitron tracking-[0.15em] text-[var(--accent)] uppercase drop-shadow-[0_0_20px_rgba(212,147,83,0.5)]">
             LeetCode // Override
           </h2>
-          <div className="w-32 h-[2px] bg-[#d49353] mt-8 shadow-[0_0_15px_rgba(212,147,83,1)] opacity-70" />
+          <div className="w-32 h-[2px] bg-[var(--accent)] mt-8 shadow-[0_0_15px_rgba(212,147,83,1)] opacity-70" />
         </div>
 
         {/* Main Stats Frame */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pointer-events-auto relative items-stretch">
           
           {/* Decorative Corner Borders simulating a terminal bracket */}
-          <div className="absolute -top-6 -left-6 w-12 h-12 border-t-2 border-l-2 border-[#d49353]/40 rounded-tl-xl pointer-events-none hidden md:block"></div>
-          <div className="absolute -bottom-6 -right-6 w-12 h-12 border-b-2 border-r-2 border-[#d49353]/40 rounded-br-xl pointer-events-none hidden md:block"></div>
+          <div className="absolute -top-6 -left-6 w-12 h-12 border-t-2 border-l-2 border-[var(--accent)]/40 rounded-tl-xl pointer-events-none hidden md:block"></div>
+          <div className="absolute -bottom-6 -right-6 w-12 h-12 border-b-2 border-r-2 border-[var(--accent)]/40 rounded-br-xl pointer-events-none hidden md:block"></div>
 
           {/* Global Terminal (Left - Total Solved) */}
-          <div className="lg:col-span-4 bg-[#0a0a0a]/80 backdrop-blur-xl border border-[#d49353]/30 rounded-3xl p-8 lg:p-10 flex flex-col items-center justify-center shadow-[0_0_40px_rgba(212,147,83,0.05)] hover:border-[#d49353]/60 hover:shadow-[0_0_50px_rgba(212,147,83,0.1)] transition-all duration-500 group relative overflow-hidden min-h-[300px]">
+          <div className="lg:col-span-4 bg-[#0a0a0a]/80 backdrop-blur-xl border border-[var(--accent)]/30 rounded-3xl p-8 lg:p-10 flex flex-col items-center justify-center shadow-[0_0_40px_rgba(212,147,83,0.05)] hover:border-[var(--accent)]/60 hover:shadow-[0_0_50px_rgba(212,147,83,0.1)] transition-all duration-500 group relative overflow-hidden min-h-[300px]">
             {/* Subtle glow orb inside corner */}
-            <div className="absolute -top-16 -left-16 w-48 h-48 bg-[#d49353]/10 rounded-full blur-[60px] group-hover:bg-[#d49353]/20 transition-colors duration-500"></div>
+            <div className="absolute -top-16 -left-16 w-48 h-48 bg-[var(--accent)]/10 rounded-full blur-[60px] group-hover:bg-[var(--accent)]/20 transition-colors duration-500"></div>
 
             <div className="text-[#888888] font-orbitron tracking-[0.2em] text-[10px] md:text-xs mb-6 uppercase text-center">Total Executed</div>
             
-            <div className="text-[5rem] lg:text-[6rem] leading-none font-bold text-white font-inter tracking-tighter mb-8 relative z-10 group-hover:scale-105 transition-transform duration-500 group-hover:text-[#d49353] drop-shadow-[0_0_30px_rgba(212,147,83,0.2)]">
+            <div className="text-[5rem] lg:text-[6rem] leading-none font-bold text-white font-inter tracking-tighter mb-8 relative z-10 group-hover:scale-105 transition-transform duration-500 group-hover:text-[var(--accent)] drop-shadow-[0_0_30px_rgba(212,147,83,0.2)]">
               {total}
             </div>
             
-            <div className="w-full bg-[#111111]/80 backdrop-blur-sm rounded-xl p-4 md:p-5 border border-white/5 flex flex-col xl:flex-row items-center justify-between gap-3 relative z-10 transition-colors group-hover:border-[#d49353]/40">
+            <div className="w-full bg-[#111111]/80 backdrop-blur-sm rounded-xl p-4 md:p-5 border border-white/5 flex flex-col xl:flex-row items-center justify-between gap-3 relative z-10 transition-colors group-hover:border-[var(--accent)]/40">
                <span className="text-[#888888] font-inter text-[10px] md:text-xs uppercase tracking-widest font-medium">Global Rank</span>
-               <span className="text-[#d49353] font-orbitron font-semibold text-lg md:text-xl tracking-wider drop-shadow-[0_0_8px_rgba(212,147,83,0.4)]">
+               <span className="text-[var(--accent)] font-orbitron font-semibold text-lg md:text-xl tracking-wider drop-shadow-[0_0_8px_rgba(212,147,83,0.4)]">
                  #{typeof rank === 'number' ? rank.toLocaleString() : rank}
                </span>
             </div>
@@ -91,7 +91,7 @@ export default async function Leetcode() {
           {/* Complexity CPU Meters (Right - 3 rings) */}
           <div className="lg:col-span-8 bg-[#0a0a0a]/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 lg:p-10 flex flex-col justify-center shadow-2xl relative overflow-hidden group hover:border-white/20 transition-colors duration-500">
             {/* Background glowing orb */}
-            <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-[#d49353]/5 rounded-full blur-[100px] group-hover:bg-[#d49353]/10 transition-colors duration-500"></div>
+            <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-[var(--accent)]/5 rounded-full blur-[100px] group-hover:bg-[var(--accent)]/10 transition-colors duration-500"></div>
 
             <h3 className="text-[#888888] font-orbitron text-xs uppercase tracking-[0.3em] mb-8 border-b border-white/5 pb-4 text-center lg:text-left relative z-10 text-shadow-sm">Complexity Matrix</h3>
             

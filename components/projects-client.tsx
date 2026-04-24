@@ -8,6 +8,16 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [translateX, setTranslateX] = useState(0);
   const [containerHeight, setContainerHeight] = useState('300vh');
+  const [accentColor, setAccentColor] = useState('#d49353');
+
+  useEffect(() => {
+    const handleThemeChange = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setAccentColor(customEvent.detail);
+    };
+    window.addEventListener('themeChange', handleThemeChange);
+    return () => window.removeEventListener('themeChange', handleThemeChange);
+  }, []);
 
   useEffect(() => {
     const updateSize = () => {
@@ -66,20 +76,20 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
 
   return (
     // The tall container that gives us vertical scroll runway
-    <section ref={containerRef} className="w-full relative bg-[#050505] text-white" style={{ height: containerHeight }}>
+    <section id="projects" ref={containerRef} className="w-full relative bg-[#050505] text-white" style={{ height: containerHeight }}>
       
       {/* The sticky shell locking to the screen */}
       <div className="md:sticky md:top-0 w-full md:h-screen md:overflow-hidden flex flex-col justify-center py-20 md:py-0">
         
         <div className="px-8 md:px-16 lg:px-24 mb-12 flex-shrink-0 z-10 relative">
-          <h2 className="text-4xl font-bold font-orbitron tracking-widest text-[#d49353] uppercase">Github // Archives</h2>
+          <h2 className="text-4xl font-bold font-orbitron tracking-widest text-[var(--accent)] uppercase">Github // Archives</h2>
         </div>
         
         {/* The horizontally sliding track */}
         <div 
           ref={trackRef} 
           className="flex flex-nowrap px-8 md:px-16 lg:px-24 gap-4 md:gap-8 items-stretch h-[350px] md:h-[400px] overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          style={{ transform: window.innerWidth < 768 ? 'none' : `translateX(-${translateX}px)`, transition: 'transform 0.1s ease-out' }}
+          style={{ transform: typeof window !== 'undefined' && window.innerWidth < 768 ? 'none' : `translateX(-${translateX}px)`, transition: 'transform 0.1s ease-out' }}
         >
           {repos.length > 0 ? (
             repos.map((repo: any) => (
@@ -94,16 +104,16 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
                   className="w-[300px] md:w-[450px] shrink-0 p-8 h-full"
                   glowColor="30 61 58"
                   backgroundColor="#050505"
-                  colors={['#d49353', '#eab308', '#888888']}
+                  colors={[accentColor, '#eab308', '#888888']}
                   animated={true}
                 >
-                  <h3 className="text-2xl font-semibold mb-4 group-hover:text-[#d49353] transition-colors font-orbitron truncate">{repo.name}</h3>
+                  <h3 className="text-2xl font-semibold mb-4 group-hover:text-[var(--accent)] transition-colors font-orbitron truncate">{repo.name}</h3>
                   <p className="text-[#888888] text-sm md:text-base mb-6 line-clamp-3 md:line-clamp-4 flex-1 font-inter leading-relaxed">
                     {repo.description || 'No description provided.'}
                   </p>
                   <div className="flex items-center gap-6 text-sm text-[#555555] mt-auto font-inter border-t border-white/5 pt-4">
                     <span className="flex items-center gap-2">
-                      <span className="w-3 h-3 rounded-full bg-[#d49353] inline-block shadow-[0_0_8px_rgba(212,147,83,0.8)]"></span>
+                      <span className="w-3 h-3 rounded-full bg-[var(--accent)] inline-block shadow-[0_0_8px_rgba(212,147,83,0.8)]"></span>
                       {repo.language || 'Code'}
                     </span>
                     <span className="flex items-center gap-1">
