@@ -2,64 +2,64 @@ import React from "react";
 
 export default function Hero() {
   return (
-    <div className="flex flex-col flex-1 min-h-screen bg-white p-4 font-inter">
+    <div className="flex flex-col flex-1 min-h-screen bg-white p-2 md:p-4 font-inter">
       {/* Main Black Container */}
-      <main className="relative flex-1 w-full bg-[#050505] rounded-[40px] overflow-hidden shadow-2xl">
+      <main className="relative flex-1 w-full bg-[#050505] rounded-[24px] md:rounded-[40px] overflow-hidden shadow-2xl">
 
         {/* Background Video */}
         <video
           src="/assets/animation2.mp4"
-          alt="Hero Background"
           autoPlay
+          loop
           muted
-          className="object-contain scale-95 z-0 pointer-events-none opacity-90"
-          priority
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-90"
         />
         {/* Dark Overlay for better contrast */}
         <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none"></div>
 
         {/* Top Left Logo Cutout (White) */}
-        <div className="absolute top-0 left-0 bg-white rounded-br-[40px] p-6 pr-8 pb-8 z-20">
+        <div className="absolute top-0 left-0 bg-white rounded-br-[16px] md:rounded-br-[40px] p-2 pr-4 md:p-6 md:pr-8 md:pb-8 z-20">
           {/* Inverted Corners */}
-          <div className="absolute top-0 -right-10 w-10 h-10 bg-transparent rounded-tl-[40px] shadow-[-20px_-20px_0_20px_white]"></div>
-          <div className="absolute -bottom-10 left-0 w-10 h-10 bg-transparent rounded-tl-[40px] shadow-[-20px_-20px_0_20px_white]"></div>
+          <div className="absolute top-0 -right-4 md:-right-10 w-4 h-4 md:w-10 md:h-10 bg-transparent rounded-tl-[16px] md:rounded-tl-[40px] shadow-[-8px_-8px_0_8px_white] md:shadow-[-20px_-20px_0_20px_white]"></div>
+          <div className="absolute -bottom-4 md:-bottom-10 left-0 w-4 h-4 md:w-10 md:h-10 bg-transparent rounded-tl-[16px] md:rounded-tl-[40px] shadow-[-8px_-8px_0_8px_white] md:shadow-[-20px_-20px_0_20px_white]"></div>
 
           {/* Logo Pill */}
-          <div className="relative z-10 bg-[#050505] text-white rounded-[24px] px-8 py-3 font-orbitron font-bold text-2xl tracking-widest italic flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
+          <div className="relative z-10 bg-[#050505] text-white rounded-[16px] md:rounded-[24px] px-4 py-1.5 md:px-8 md:py-3 font-orbitron font-bold text-sm md:text-2xl tracking-widest italic flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
             Zenous
           </div>
         </div>
 
         {/* Top Right Nav Cutout (White) */}
-        <div className="absolute top-0 right-0 bg-white rounded-bl-[40px] p-6 pl-8 pb-8 flex items-center gap-4 z-20">
+        <div className="absolute top-0 right-0 bg-white rounded-bl-[16px] md:rounded-bl-[40px] p-2 pl-4 md:p-6 md:pl-8 md:pb-8 flex items-center gap-1.5 md:gap-4 z-20">
           {/* Inverted Corners */}
-          <div className="absolute top-0 -left-10 w-10 h-10 bg-transparent rounded-tr-[40px] shadow-[20px_-20px_0_20px_white]"></div>
-          <div className="absolute -bottom-10 right-0 w-10 h-10 bg-transparent rounded-tr-[40px] shadow-[20px_-20px_0_20px_white]"></div>
+          <div className="absolute top-0 -left-4 md:-left-10 w-4 h-4 md:w-10 md:h-10 bg-transparent rounded-tr-[16px] md:rounded-tr-[40px] shadow-[8px_-8px_0_8px_white] md:shadow-[20px_-20px_0_20px_white]"></div>
+          <div className="absolute -bottom-4 md:-bottom-10 right-0 w-4 h-4 md:w-10 md:h-10 bg-transparent rounded-tr-[16px] md:rounded-tr-[40px] shadow-[8px_-8px_0_8px_white] md:shadow-[20px_-20px_0_20px_white]"></div>
 
           {/* Search Button */}
-          <button className="relative z-10 w-14 h-14 bg-[#050505] rounded-full flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
-            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <button className="relative z-10 w-8 h-8 md:w-14 md:h-14 bg-[#050505] rounded-full flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
+            <svg className="w-3 h-3 md:w-5 md:h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
 
           {/* Bag Button */}
-          <button className="relative z-10 w-14 h-14 bg-[#050505] rounded-full flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
-            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <button className="relative z-10 w-8 h-8 md:w-14 md:h-14 bg-[#050505] rounded-full flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
+            <svg className="w-3 h-3 md:w-5 md:h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
           </button>
 
           {/* Contact Pill */}
-          <button className="relative z-10 h-14 px-8 bg-[#050505] rounded-[28px] flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
-            <span className="text-white text-sm font-medium tracking-wide">Contact</span>
+          <button className="relative z-10 h-8 md:h-14 px-3 md:px-8 bg-[#050505] rounded-[16px] md:rounded-[28px] flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
+            <span className="text-white text-[10px] md:text-sm font-medium tracking-wide">Contact</span>
           </button>
         </div>
 
 
 
         {/* Bottom Right Image Cutout Group (White Area containing empty black pill) */}
-        <div className="absolute bottom-0 right-0 bg-white rounded-tl-[60px] pl-8 pt-8 flex z-20 w-[400px] h-[300px]">
+        <div className="absolute bottom-0 right-0 bg-white rounded-tl-[60px] pl-8 pt-8 hidden md:flex z-20 w-[400px] h-[300px]">
           {/* Inverted Corners */}
           <div className="absolute bottom-0 -left-10 w-10 h-10 bg-transparent rounded-br-[40px] shadow-[20px_20px_0_20px_white]"></div>
           <div className="absolute -top-10 right-0 w-10 h-10 bg-transparent rounded-br-[40px] shadow-[20px_20px_0_20px_white]"></div>
@@ -82,7 +82,7 @@ export default function Hero() {
         </div>
 
         {/* Outer mini dots on bottom right corner (like the reference has near the cutout) */}
-        <div className="absolute bottom-16 right-[420px] flex gap-4 z-20">
+        <div className="absolute bottom-16 right-[420px] hidden md:flex gap-4 z-20">
           <div className="w-12 h-12 bg-[#050505] rounded-full flex items-center justify-center">
             <div className="w-2 h-2 bg-white/30 rounded-full"></div>
           </div>
@@ -98,15 +98,15 @@ export default function Hero() {
 
 
         {/* Bottom Left Huge Typography */}
-        <div className="absolute bottom-12 left-12 flex flex-col font-orbitron text-white z-20 pointer-events-none select-none">
-          <h1 className="text-[6vw] sm:text-[7vw] leading-[1.05] font-bold tracking-[0.05em] uppercase">
+        <div className="absolute bottom-8 left-6 md:bottom-12 md:left-12 flex flex-col font-orbitron text-white z-20 pointer-events-none select-none">
+          <h1 className="text-[14vw] sm:text-[7vw] leading-[1.05] font-bold tracking-[0.05em] uppercase">
             <span className="block hover:text-gray-300 transition-colors duration-500">Bennett</span>
             <span className="block text-transparent relative group" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.9)' }}>
               Joshua
               {/* Optional glowing effect hidden normally */}
               <div className="absolute inset-0 bg-white/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             </span>
-            
+
           </h1>
         </div>
 

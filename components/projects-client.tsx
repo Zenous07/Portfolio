@@ -12,6 +12,11 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
   useEffect(() => {
     const updateSize = () => {
       if (trackRef.current) {
+        if (window.innerWidth < 768) {
+          setContainerHeight('auto');
+          setTranslateX(0);
+          return;
+        }
         const trackWidth = trackRef.current.scrollWidth;
         const viewportWidth = window.innerWidth;
         // Adding 160px padding at the end for good measure
@@ -26,6 +31,7 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
     window.addEventListener('resize', updateSize);
     
     const handleScroll = () => {
+      if (window.innerWidth < 768) return;
       if (!containerRef.current || !trackRef.current) return;
       
       const { top, bottom } = containerRef.current.getBoundingClientRect();
@@ -63,7 +69,7 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
     <section ref={containerRef} className="w-full relative bg-[#050505] text-white" style={{ height: containerHeight }}>
       
       {/* The sticky shell locking to the screen */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col justify-center">
+      <div className="md:sticky md:top-0 w-full md:h-screen md:overflow-hidden flex flex-col justify-center py-20 md:py-0">
         
         <div className="px-8 md:px-16 lg:px-24 mb-12 flex-shrink-0 z-10 relative">
           <h2 className="text-4xl font-bold font-orbitron tracking-widest text-[#d49353] uppercase">Github // Archives</h2>
@@ -72,8 +78,8 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
         {/* The horizontally sliding track */}
         <div 
           ref={trackRef} 
-          className="flex flex-nowrap px-8 md:px-16 lg:px-24 gap-8 items-stretch h-[350px] md:h-[400px]"
-          style={{ transform: `translateX(-${translateX}px)`, transition: 'transform 0.1s ease-out' }}
+          className="flex flex-nowrap px-8 md:px-16 lg:px-24 gap-4 md:gap-8 items-stretch h-[350px] md:h-[400px] overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          style={{ transform: window.innerWidth < 768 ? 'none' : `translateX(-${translateX}px)`, transition: 'transform 0.1s ease-out' }}
         >
           {repos.length > 0 ? (
             repos.map((repo: any) => (
@@ -82,7 +88,7 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
                 href={repo.html_url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="shrink-0 group overflow-visible relative flex h-full active:scale-[0.98] transition-transform duration-[200ms] ease-[var(--ease-ui)]"
+                className="shrink-0 group overflow-visible relative flex h-full active:scale-[0.98] transition-transform duration-[200ms] ease-[var(--ease-ui)] snap-center"
               >
                 <BorderGlow 
                   className="w-[300px] md:w-[450px] shrink-0 p-8 h-full"
