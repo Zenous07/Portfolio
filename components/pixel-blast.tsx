@@ -3,7 +3,7 @@
 "use client";
 
 import { Effect, EffectComposer, EffectPass, RenderPass } from 'postprocessing';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const createTouchTexture = () => {
@@ -331,6 +331,7 @@ const PixelBlast = ({
   const containerRef = useRef(null);
   const visibilityRef = useRef({ visible: true });
   const speedRef = useRef(speed);
+  const [webglSupported, setWebglSupported] = React.useState(true);
 
   const threeRef = useRef(null);
   const prevConfigRef = useRef(null);
@@ -365,6 +366,9 @@ const PixelBlast = ({
       const canvas = document.createElement('canvas');
       let renderer;
       try {
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) throw new Error("WebGL not supported");
+        
         renderer = new THREE.WebGLRenderer({
           canvas,
           antialias,
@@ -373,7 +377,7 @@ const PixelBlast = ({
           failIfMajorPerformanceCaveat: false
         });
       } catch (e) {
-        console.warn("WebGL not supported or context lost:", e);
+        setWebglSupported(false);
         return;
       }
       renderer.domElement.style.width = '100%';
@@ -534,7 +538,6 @@ const PixelBlast = ({
         scene,
         camera,
         material,
-        clock,
         clickIx: 0,
         uniforms,
         resizeObserver: ro,
@@ -605,6 +608,15 @@ const PixelBlast = ({
     color,
     speed
   ]);
+
+  if (!webglSupported) {
+    return (
+      <div 
+        className={`w-full h-full bg-gradient-to-br from-black to-[#111] ${className ?? ''}`} 
+        style={style}
+      />
+    );
+  }
 
   return (
     <div

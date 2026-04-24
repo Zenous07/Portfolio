@@ -26,6 +26,14 @@ const SKILLS = [
 
 export default function SkillsGraph() {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const getConnections = () => {
     const lines: React.ReactNode[] = [];
@@ -37,12 +45,12 @@ export default function SkillsGraph() {
           lines.push(
             <motion.line
               key={`${skill.id}-${targetId}`}
-              x1={`${skill.x}%`}
-              y1={`${skill.y}%`}
-              x2={`${target.x}%`}
-              y2={`${target.y}%`}
+              x1={skill.x * 10}
+              y1={skill.y * 10}
+              x2={target.x * 10}
+              y2={target.y * 10}
               stroke={isHighlighted ? "var(--accent)" : "#222"}
-              strokeWidth={isHighlighted ? 2 : 1}
+              strokeWidth={isHighlighted ? (isMobile ? 3 : 2) : (isMobile ? 1.5 : 1)}
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{ 
                 pathLength: 1, 
@@ -60,7 +68,7 @@ export default function SkillsGraph() {
   };
 
   return (
-    <div className="w-full h-[400px] bg-[#0a0a0a]/40 border border-white/5 rounded-2xl relative overflow-hidden group">
+    <div className="w-full h-[500px] md:h-[500px] bg-[#0a0a0a]/40 border border-white/5 rounded-2xl relative overflow-hidden group">
       {/* HUD Background elements */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--accent)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
@@ -71,7 +79,7 @@ export default function SkillsGraph() {
         <span className="font-orbitron text-[9px] tracking-[0.4em] text-[var(--accent)] uppercase">Neural_Sync: Online</span>
       </div>
 
-      <svg className="w-full h-full p-12">
+      <svg className="w-full h-full p-2 md:p-12" viewBox="0 150 1000 700" preserveAspectRatio="xMidYMid meet">
         {/* Connections */}
         {getConnections()}
 
@@ -79,22 +87,24 @@ export default function SkillsGraph() {
         {SKILLS.map((skill) => {
           const isHighlighted = hoveredNode === skill.id || (hoveredNode && skill.connections.includes(hoveredNode));
           const isPrimary = hoveredNode === skill.id;
+          const nodeSize = isMobile ? skill.size * 3.2 : skill.size * 1.8; // Even larger for mobile
 
           return (
             <motion.g
               key={skill.id}
               onMouseEnter={() => setHoveredNode(skill.id)}
               onMouseLeave={() => setHoveredNode(null)}
+              onClick={() => setHoveredNode(hoveredNode === skill.id ? null : skill.id)}
               className="cursor-pointer"
             >
               {/* Outer Ring */}
               <motion.circle
-                cx={`${skill.x}%`}
-                cy={`${skill.y}%`}
-                r={skill.size / 2 + 10}
+                cx={skill.x * 10}
+                cy={skill.y * 10}
+                r={nodeSize / 2 + (isMobile ? 35 : 15)}
                 fill="transparent"
                 stroke={isHighlighted ? "var(--accent)" : "transparent"}
-                strokeWidth={1}
+                strokeWidth={isMobile ? 4 : 2}
                 strokeDasharray="4 4"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -102,26 +112,26 @@ export default function SkillsGraph() {
 
               {/* Node Body */}
               <motion.circle
-                cx={`${skill.x}%`}
-                cy={`${skill.y}%`}
-                r={skill.size / 2}
+                cx={skill.x * 10}
+                cy={skill.y * 10}
+                r={nodeSize / 2}
                 fill={isPrimary ? "var(--accent)" : "#111"}
                 stroke={isHighlighted ? "var(--accent)" : "#333"}
-                strokeWidth={2}
+                strokeWidth={isMobile ? 5 : 2}
                 animate={{ 
                   scale: isPrimary ? 1.2 : 1,
-                  boxShadow: isHighlighted ? "0 0 20px var(--accent)" : "none"
                 }}
               />
 
               {/* Text */}
               <motion.text
-                x={`${skill.x}%`}
-                y={`${skill.y}%`}
-                dy="4"
+                x={skill.x * 10}
+                y={skill.y * 10}
+                dy={isMobile ? "6" : "5"}
                 textAnchor="middle"
                 fill={isPrimary ? "#000" : (isHighlighted ? "#fff" : "#666")}
-                className="font-orbitron text-[9px] font-bold tracking-wider pointer-events-none"
+                className="font-orbitron font-bold tracking-wider pointer-events-none"
+                style={{ fontSize: isMobile ? '48px' : '18px' }}
               >
                 {skill.label}
               </motion.text>
