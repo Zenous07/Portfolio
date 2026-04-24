@@ -31,19 +31,19 @@ export default function About() {
 
           {/* 3 Icons below paragraph */}
           <div className="flex gap-4 mt-8 md:mt-12">
-            <div className="w-12 h-12 rounded-full border border-[#d49353]/30 flex items-center justify-center text-[#d49353] hover:border-[#d49353] hover:shadow-[0_0_15px_rgba(212,147,83,0.3)] transition-all cursor-pointer">
+            <div className="w-12 h-12 rounded-full border border-[#d49353]/30 flex items-center justify-center text-[#d49353] hover:border-[#d49353] hover:shadow-[0_0_15px_rgba(212,147,83,0.3)] transition-all cursor-pointer active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
               {/* Icon 1: Hexagon/Code */}
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
             </div>
-            <div className="w-12 h-12 rounded-full border border-[#d49353]/30 flex items-center justify-center text-[#d49353] hover:border-[#d49353] hover:shadow-[0_0_15px_rgba(212,147,83,0.3)] transition-all cursor-pointer">
+            <div className="w-12 h-12 rounded-full border border-[#d49353]/30 flex items-center justify-center text-[#d49353] hover:border-[#d49353] hover:shadow-[0_0_15px_rgba(212,147,83,0.3)] transition-all cursor-pointer active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
               {/* Icon 2: Database/Server */}
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
               </svg>
             </div>
-            <div className="w-12 h-12 rounded-full border border-[#d49353]/30 flex items-center justify-center text-[#d49353] hover:border-[#d49353] hover:shadow-[0_0_15px_rgba(212,147,83,0.3)] transition-all cursor-pointer">
+            <div className="w-12 h-12 rounded-full border border-[#d49353]/30 flex items-center justify-center text-[#d49353] hover:border-[#d49353] hover:shadow-[0_0_15px_rgba(212,147,83,0.3)] transition-all cursor-pointer active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
               {/* Icon 3: Sparkle */}
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -110,7 +110,7 @@ export default function About() {
               Building high-performance AI interfaces and scalable next-generation platforms.
             </p>
             <div className="flex items-center">
-              <button className="px-5 py-2 rounded-full border border-[#d49353]/30 text-[#d49353] text-xs font-medium hover:bg-[#d49353] hover:text-[#050505] transition-all duration-300 tracking-wider uppercase">
+              <button className="px-5 py-2 rounded-full border border-[#d49353]/30 text-[#d49353] text-xs font-medium hover:bg-[#d49353] hover:text-[#050505] transition-all duration-[160ms] ease-[var(--ease-ui)] tracking-wider uppercase active:scale-[0.97]">
                 Add to Cart
               </button>
             </div>
@@ -120,25 +120,25 @@ export default function About() {
         {/* Bottom Right Connected Pills */}
         <div className="hidden lg:flex items-center gap-0 mt-12 md:mt-0 font-inter text-[10px] md:text-xs tracking-widest uppercase text-[#888888] relative">
            
-           <div className="px-5 py-2.5 border border-[#d49353]/20 rounded-full hover:text-[#d49353] hover:border-[#d49353]/60 hover:shadow-[0_0_10px_rgba(212,147,83,0.15)] transition-all cursor-pointer bg-[#050505] z-10 relative">
+           <div className="px-5 py-2.5 border border-[#d49353]/20 rounded-full hover:text-[#d49353] hover:border-[#d49353]/60 hover:shadow-[0_0_10px_rgba(212,147,83,0.15)] transition-all cursor-pointer bg-[#050505] z-10 relative active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
              REACT
            </div>
            
            <div className="w-8 h-[1px] bg-[#d49353]/20 -mx-2 z-0"></div>
 
-           <div className="px-5 py-2.5 border border-[#d49353]/20 rounded-full text-white border-[#d49353]/50 shadow-[0_0_10px_rgba(212,147,83,0.1)] transition-all cursor-pointer bg-[#050505] z-10 relative">
+           <div className="px-5 py-2.5 border border-[#d49353]/20 rounded-full text-white border-[#d49353]/50 shadow-[0_0_10px_rgba(212,147,83,0.1)] transition-all cursor-pointer bg-[#050505] z-10 relative active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
              NEXT.JS
            </div>
            
            <div className="w-8 h-[1px] bg-[#d49353]/20 -mx-2 z-0"></div>
            
-           <div className="px-5 py-2.5 border border-[#d49353]/20 rounded-full hover:text-[#d49353] hover:border-[#d49353]/60 transition-all cursor-pointer bg-[#050505] z-10 relative">
+           <div className="px-5 py-2.5 border border-[#d49353]/20 rounded-full hover:text-[#d49353] hover:border-[#d49353]/60 transition-all cursor-pointer bg-[#050505] z-10 relative active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
              TYPESCRIPT
            </div>
 
            <div className="w-8 h-[1px] bg-[#d49353]/20 -mx-2 z-0"></div>
 
-           <div className="px-5 py-2.5 border border-[#d49353]/20 rounded-full hover:text-[#d49353] hover:border-[#d49353]/60 transition-all cursor-pointer bg-[#050505] z-10 relative">
+           <div className="px-5 py-2.5 border border-[#d49353]/20 rounded-full hover:text-[#d49353] hover:border-[#d49353]/60 transition-all cursor-pointer bg-[#050505] z-10 relative active:scale-[0.97] duration-[160ms] ease-[var(--ease-ui)]">
              TAILWIND
            </div>
            

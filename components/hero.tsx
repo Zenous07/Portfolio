@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -7,11 +6,12 @@ export default function Hero() {
       {/* Main Black Container */}
       <main className="relative flex-1 w-full bg-[#050505] rounded-[40px] overflow-hidden shadow-2xl">
 
-        {/* Background Image */}
-        <Image
-          src="/assets/hero.png"
+        {/* Background Video */}
+        <video
+          src="/assets/animation2.mp4"
           alt="Hero Background"
-          fill
+          autoPlay
+          muted
           className="object-contain scale-95 z-0 pointer-events-none opacity-90"
           priority
         />
@@ -25,7 +25,7 @@ export default function Hero() {
           <div className="absolute -bottom-10 left-0 w-10 h-10 bg-transparent rounded-tl-[40px] shadow-[-20px_-20px_0_20px_white]"></div>
 
           {/* Logo Pill */}
-          <div className="relative z-10 bg-[#050505] text-white rounded-[24px] px-8 py-3 font-orbitron font-bold text-2xl tracking-widest italic flex items-center justify-center cursor-pointer">
+          <div className="relative z-10 bg-[#050505] text-white rounded-[24px] px-8 py-3 font-orbitron font-bold text-2xl tracking-widest italic flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
             Zenous
           </div>
         </div>
@@ -37,21 +37,21 @@ export default function Hero() {
           <div className="absolute -bottom-10 right-0 w-10 h-10 bg-transparent rounded-tr-[40px] shadow-[20px_-20px_0_20px_white]"></div>
 
           {/* Search Button */}
-          <button className="relative z-10 w-14 h-14 bg-[#050505] rounded-full flex items-center justify-center cursor-pointer">
+          <button className="relative z-10 w-14 h-14 bg-[#050505] rounded-full flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
 
           {/* Bag Button */}
-          <button className="relative z-10 w-14 h-14 bg-[#050505] rounded-full flex items-center justify-center cursor-pointer">
+          <button className="relative z-10 w-14 h-14 bg-[#050505] rounded-full flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
           </button>
 
           {/* Contact Pill */}
-          <button className="relative z-10 h-14 px-8 bg-[#050505] rounded-[28px] flex items-center justify-center cursor-pointer">
+          <button className="relative z-10 h-14 px-8 bg-[#050505] rounded-[28px] flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-[160ms] ease-[var(--ease-ui)]">
             <span className="text-white text-sm font-medium tracking-wide">Contact</span>
           </button>
         </div>

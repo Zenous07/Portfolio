@@ -12,7 +12,7 @@ async function fetchLeetCodeData(username: string) {
       profile: await profileRes.json(),
       solved: await solvedRes.json()
     };
-  } catch (e) {
+  } catch (e) {KO
     console.error(e);
     return null;
   }

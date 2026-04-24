@@ -82,7 +82,7 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
                 href={repo.html_url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="shrink-0 group overflow-visible relative flex h-full"
+                className="shrink-0 group overflow-visible relative flex h-full active:scale-[0.98] transition-transform duration-[200ms] ease-[var(--ease-ui)]"
               >
                 <BorderGlow 
                   className="w-[300px] md:w-[450px] shrink-0 p-8 h-full"
