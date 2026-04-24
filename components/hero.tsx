@@ -161,13 +161,19 @@ export default function Hero() {
         {/* Bottom Left Huge Typography */}
         <div className="absolute bottom-8 left-6 md:bottom-12 md:left-12 flex flex-col font-orbitron text-white z-20 pointer-events-none select-none">
           <h1 className="text-[14vw] sm:text-[7vw] leading-[1.05] font-bold tracking-[0.05em] uppercase">
-            <span className="block hover:text-gray-300 transition-colors duration-500">Bennett</span>
-            <span className="block text-transparent relative group" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.9)' }}>
+            <span className="block hover:text-gray-300 transition-colors duration-500 pointer-events-auto">Bennett</span>
+            <span className="block text-transparent relative group pointer-events-auto" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.9)' }}>
               Joshua
               {/* Optional glowing effect hidden normally */}
               <div className="absolute inset-0 bg-white/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             </span>
           </h1>
+          <button 
+            onClick={() => window.dispatchEvent(new Event('toggleDevMode'))}
+            className="mt-4 pointer-events-auto text-[10px] md:text-sm tracking-[0.2em] text-white/30 hover:text-[var(--accent)] hover:shadow-[0_0_10px_var(--accent)] border border-white/10 hover:border-[var(--accent)] bg-black/50 backdrop-blur-sm px-4 py-1 rounded w-fit transition-all duration-300 uppercase"
+          >
+            [ DEV_MODE ]
+          </button>
         </div>
 
       </main>

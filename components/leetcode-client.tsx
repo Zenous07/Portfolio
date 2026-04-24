@@ -1,25 +1,30 @@
-import React from 'react';
+"use client";
+
+import React, { useEffect, useState } from 'react';
 import PixelBlast from './pixel-blast';
 
-async function fetchLeetCodeData(username: string) {
-  try {
-    const [profileRes, solvedRes] = await Promise.all([
-      fetch(`https://alfa-leetcode-api.onrender.com/${username}`, { next: { revalidate: 3600 } }),
-      fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved`, { next: { revalidate: 3600 } })
-    ]);
-    if (!profileRes.ok || !solvedRes.ok) return null;
-    return {
-      profile: await profileRes.json(),
-      solved: await solvedRes.json()
-    };
-  } catch (e) {KO
-    console.error(e);
-    return null;
-  }
+interface LeetcodeData {
+  profile: any;
+  solved: any;
 }
 
-export default async function Leetcode() {
-  const data = await fetchLeetCodeData("BennettJoshua");
+export default function LeetcodeClient({ data }: { data: LeetcodeData | null }) {
+  const [mounted, setMounted] = useState(false);
+  const [accentHex, setAccentHex] = useState('#d49353');
+
+  useEffect(() => {
+    setMounted(true);
+    
+    // Resolve CSS variable to Hex for Three.js
+    const resolveAccent = () => {
+      const color = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+      if (color) setAccentHex(color);
+    };
+    
+    resolveAccent();
+    window.addEventListener('themeChange', resolveAccent);
+    return () => window.removeEventListener('themeChange', resolveAccent);
+  }, []);
 
   const easy = data?.solved?.easySolved ?? 0;
   const medium = data?.solved?.mediumSolved ?? 0;
@@ -31,13 +36,15 @@ export default async function Leetcode() {
   const medTotal = 2027;
   const hardTotal = 915;
 
+  if (!mounted) return <div className="min-h-[85vh] bg-[#050505]" />;
+
   return (
     <section className="relative w-full min-h-[85vh] flex flex-col items-center justify-center bg-[#050505] overflow-hidden border-t border-white/5 py-32 z-0">
       
       {/* Interactive WebGL Background */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
         <PixelBlast
-          color="var(--accent)"
+          color={accentHex}
           pixelSize={4}
           variant="diamond"
           patternScale={2}
@@ -65,13 +72,11 @@ export default async function Leetcode() {
         {/* Main Stats Frame */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pointer-events-auto relative items-stretch">
           
-          {/* Decorative Corner Borders simulating a terminal bracket */}
           <div className="absolute -top-6 -left-6 w-12 h-12 border-t-2 border-l-2 border-[var(--accent)]/40 rounded-tl-xl pointer-events-none hidden md:block"></div>
           <div className="absolute -bottom-6 -right-6 w-12 h-12 border-b-2 border-r-2 border-[var(--accent)]/40 rounded-br-xl pointer-events-none hidden md:block"></div>
 
-          {/* Global Terminal (Left - Total Solved) */}
+          {/* Global Terminal */}
           <div className="lg:col-span-4 bg-[#0a0a0a]/80 backdrop-blur-xl border border-[var(--accent)]/30 rounded-3xl p-8 lg:p-10 flex flex-col items-center justify-center shadow-[0_0_40px_rgba(212,147,83,0.05)] hover:border-[var(--accent)]/60 hover:shadow-[0_0_50px_rgba(212,147,83,0.1)] transition-all duration-500 group relative overflow-hidden min-h-[300px]">
-            {/* Subtle glow orb inside corner */}
             <div className="absolute -top-16 -left-16 w-48 h-48 bg-[var(--accent)]/10 rounded-full blur-[60px] group-hover:bg-[var(--accent)]/20 transition-colors duration-500"></div>
 
             <div className="text-[#888888] font-orbitron tracking-[0.2em] text-[10px] md:text-xs mb-6 uppercase text-center">Total Executed</div>
@@ -88,9 +93,8 @@ export default async function Leetcode() {
             </div>
           </div>
 
-          {/* Complexity CPU Meters (Right - 3 rings) */}
+          {/* Complexity CPU Meters */}
           <div className="lg:col-span-8 bg-[#0a0a0a]/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 lg:p-10 flex flex-col justify-center shadow-2xl relative overflow-hidden group hover:border-white/20 transition-colors duration-500">
-            {/* Background glowing orb */}
             <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-[var(--accent)]/5 rounded-full blur-[100px] group-hover:bg-[var(--accent)]/10 transition-colors duration-500"></div>
 
             <h3 className="text-[#888888] font-orbitron text-xs uppercase tracking-[0.3em] mb-8 border-b border-white/5 pb-4 text-center lg:text-left relative z-10 text-shadow-sm">Complexity Matrix</h3>
@@ -112,13 +116,12 @@ export default async function Leetcode() {
 function HorseshoeMeter({ label, solved, total, color }: { label: string, solved: number, total: number, color: string }) {
   const radius = 38;
   const strokeWidth = 5;
-  const circumference = 2 * Math.PI * radius; // ~238.76
-  const strokeLength = circumference * 0.75; // 270 degrees sweep
-  const gapLength = circumference * 0.25; // 90 degrees gap
+  const circumference = 2 * Math.PI * radius; 
+  const strokeLength = circumference * 0.75; 
+  const gapLength = circumference * 0.25; 
   
-  // Create an artificial minimum visual length so small numbers are visible
   const percentage = total > 0 ? (solved / total) : 0;
-  const minPercentage = 0.02; // 2% minimum fill for visual feedback
+  const minPercentage = 0.02; 
   const displayPercentage = solved > 0 ? Math.max(percentage, minPercentage) : 0;
   
   const fillLength = displayPercentage * strokeLength;
@@ -128,12 +131,10 @@ function HorseshoeMeter({ label, solved, total, color }: { label: string, solved
 
   return (
     <div className="flex flex-col items-center bg-[#111111]/60 backdrop-blur-md border border-white/5 rounded-2xl p-6 shadow-xl group/meter hover:border-white/20 transition-all duration-500 relative cursor-default overflow-hidden">
-       {/* Ambient Backlight matching difficulty color */}
        <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full blur-2xl opacity-10 transition-opacity duration-500 group-hover/meter:opacity-20 pointer-events-none" style={{ backgroundColor: color }}></div>
 
        <div className="relative w-28 h-28 flex items-center justify-center mb-3">
           <svg className="w-full h-full transform rotate-135" viewBox="0 0 100 100">
-             {/* Background track */}
              <circle 
                cx="50" cy="50" r={radius} 
                fill="transparent" 
@@ -142,13 +143,12 @@ function HorseshoeMeter({ label, solved, total, color }: { label: string, solved
                strokeLinecap="round"
                strokeDasharray={strokeDasharrayBackground}
              />
-             {/* Progress fill */}
              <circle 
                cx="50" cy="50" r={radius} 
                fill="transparent" 
                stroke={color} 
                strokeWidth={strokeWidth} 
-               strokeLinecap="round"
+               strokeLinecap="round" 
                strokeDasharray={strokeDasharrayFill}
                className="transition-all duration-1500 ease-out"
                style={{ filter: `drop-shadow(0 0 6px ${color})` }}

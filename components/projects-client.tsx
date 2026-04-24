@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import BorderGlow from './border-glow';
+import { motion } from "framer-motion";
 
 export default function ProjectsClient({ repos }: { repos: any[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -9,8 +10,10 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
   const [translateX, setTranslateX] = useState(0);
   const [containerHeight, setContainerHeight] = useState('300vh');
   const [accentColor, setAccentColor] = useState('#d49353');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleThemeChange = (e: Event) => {
       const customEvent = e as CustomEvent;
       setAccentColor(customEvent.detail);
@@ -29,14 +32,11 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
         }
         const trackWidth = trackRef.current.scrollWidth;
         const viewportWidth = window.innerWidth;
-        // Adding 160px padding at the end for good measure
         const maxScroll = Math.max(0, trackWidth - viewportWidth + 160);
-        // Map 1px vertical scroll to 1px horizontal scroll exactly
         setContainerHeight(`${window.innerHeight + maxScroll}px`);
       }
     };
     
-    // Slight delay to ensure DOM is fully painted
     setTimeout(updateSize, 100);
     window.addEventListener('resize', updateSize);
     
@@ -50,17 +50,14 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
       const viewportWidth = window.innerWidth;
       const maxTranslateX = Math.max(0, trackWidth - viewportWidth + 160); 
 
-      // If the sticky container is pinned (section is passing through viewport)
       if (top <= 0 && bottom >= windowHeight) {
         const scrollableDistance = containerRef.current.scrollHeight - windowHeight;
         const scrolledDistance = -top;
         const boundedProgress = Math.max(0, Math.min(1, scrolledDistance / scrollableDistance));
         setTranslateX(boundedProgress * maxTranslateX);
       } else if (top > 0) {
-        // Above the viewport
         setTranslateX(0);
       } else if (bottom < windowHeight) {
-        // Below the viewport
         setTranslateX(maxTranslateX);
       }
     };
@@ -75,21 +72,27 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
   }, [repos]);
 
   return (
-    // The tall container that gives us vertical scroll runway
     <section id="projects" ref={containerRef} className="w-full relative bg-[#050505] text-white" style={{ height: containerHeight }}>
-      
-      {/* The sticky shell locking to the screen */}
       <div className="md:sticky md:top-0 w-full md:h-screen md:overflow-hidden flex flex-col justify-center py-20 md:py-0">
         
-        <div className="px-8 md:px-16 lg:px-24 mb-12 flex-shrink-0 z-10 relative">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="px-8 md:px-16 lg:px-24 mb-12 flex-shrink-0 z-10 relative"
+        >
           <h2 className="text-4xl font-bold font-orbitron tracking-widest text-[var(--accent)] uppercase">Github // Archives</h2>
-        </div>
+        </motion.div>
         
-        {/* The horizontally sliding track */}
-        <div 
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.3 }}
           ref={trackRef} 
           className="flex flex-nowrap px-8 md:px-16 lg:px-24 gap-4 md:gap-8 items-stretch h-[350px] md:h-[400px] overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          style={{ transform: typeof window !== 'undefined' && window.innerWidth < 768 ? 'none' : `translateX(-${translateX}px)`, transition: 'transform 0.1s ease-out' }}
+          style={{ transform: mounted && window.innerWidth < 768 ? 'none' : `translateX(-${translateX}px)`, transition: 'transform 0.1s ease-out' }}
         >
           {repos.length > 0 ? (
             repos.map((repo: any) => (
@@ -129,7 +132,7 @@ export default function ProjectsClient({ repos }: { repos: any[] }) {
           ) : (
             <div className="text-[#888888] font-inter">Loading or no public repositories found...</div>
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

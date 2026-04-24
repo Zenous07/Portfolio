@@ -363,12 +363,19 @@ const PixelBlast = ({
         threeRef.current = null;
       }
       const canvas = document.createElement('canvas');
-      const renderer = new THREE.WebGLRenderer({
-        canvas,
-        antialias,
-        alpha: true,
-        powerPreference: 'high-performance'
-      });
+      let renderer;
+      try {
+        renderer = new THREE.WebGLRenderer({
+          canvas,
+          antialias,
+          alpha: true,
+          powerPreference: 'high-performance',
+          failIfMajorPerformanceCaveat: false
+        });
+      } catch (e) {
+        console.warn("WebGL not supported or context lost:", e);
+        return;
+      }
       renderer.domElement.style.width = '100%';
       renderer.domElement.style.height = '100%';
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));

@@ -1,4 +1,7 @@
+"use client";
+
 import React from 'react';
+import { motion } from "framer-motion";
 import Image from 'next/image';
 
 export default function About() {
@@ -15,7 +18,13 @@ export default function About() {
       />
 
       {/* Top Header Row */}
-      <div className="flex flex-col md:flex-row justify-between items-start w-full relative z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="flex flex-col md:flex-row justify-between items-start w-full relative z-10"
+      >
         {/* Left: Giant Title */}
         <div className="flex flex-col">
           <h2 className="font-orbitron font-bold text-[3rem] md:text-[5rem] lg:text-[6rem] text-[var(--accent)] leading-[1.05] uppercase tracking-wide">
@@ -83,10 +92,16 @@ export default function About() {
              </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Bottom Row */}
-      <div className="flex flex-col md:flex-row justify-between items-end w-full mt-24 mb-8 md:mb-0 relative z-20">
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        className="flex flex-col md:flex-row justify-between items-end w-full mt-24 mb-8 md:mb-0 relative z-20"
+      >
         
         {/* Bottom Left Card */}
         <div className="w-full md:w-[460px] rounded-3xl border border-[var(--accent)]/20 bg-[#050505]/80 backdrop-blur-md p-6 lg:p-8 flex gap-6 relative group hover:border-[var(--accent)]/50 transition-colors duration-500 shadow-2xl">
@@ -152,7 +167,7 @@ export default function About() {
              </svg>
            </div>
         </div>
-      </div>
+      </motion.div>
 
     </section>
   );
