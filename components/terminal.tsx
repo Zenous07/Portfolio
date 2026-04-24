@@ -53,6 +53,7 @@ export default function Terminal({ onExit }: TerminalProps) {
   ls         - List files in current directory
   cat        - Read a file (e.g., cat bio.txt)
   skills     - List technical proficiencies
+  resume     - Open official resume/CV
   clear      - Clear the terminal screen
   sudo       - Execute a command as superuser
   exit       - Return to the graphical interface`;
@@ -69,7 +70,9 @@ export default function Terminal({ onExit }: TerminalProps) {
           break;
         case "cat resume.pdf":
         case "cat resume":
-          outputText = "Error: Cannot read binary file format in terminal. Type 'exit' and click 'Resume' in graphical mode.";
+        case "resume":
+          window.open('/assets/resume.pdf', '_blank');
+          outputText = "Opening C:\\Users\\Zenous\\resume.pdf in a new buffer...";
           break;
         case "skills":
           outputText = "[FRONTEND]\nReact, Next.js, TypeScript, TailwindCSS, Three.js, Framer Motion\n\n[BACKEND]\nNode.js, Python, PostgreSQL, GraphQL, Docker";

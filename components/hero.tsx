@@ -82,6 +82,11 @@ export default function Hero() {
             </svg>
           </button>
 
+          {/* Resume Pill */}
+          <a href="/assets/resume.pdf" target="_blank" rel="noopener noreferrer" className="relative z-10 h-8 md:h-14 px-3 md:px-8 bg-[#050505] rounded-[16px] md:rounded-[28px] flex items-center justify-center cursor-pointer active:scale-[0.97] transition-all duration-300 ease-[var(--ease-ui)] hover:shadow-[0_0_15px_var(--accent)] border border-transparent hover:border-accent">
+            <span className="text-white text-[10px] md:text-sm font-medium tracking-wide">Resume</span>
+          </a>
+
           {/* Contact Pill */}
           <a href="#contact" className="relative z-10 h-8 md:h-14 px-3 md:px-8 bg-[#050505] rounded-[16px] md:rounded-[28px] flex items-center justify-center cursor-pointer active:scale-[0.97] transition-all duration-300 ease-[var(--ease-ui)] hover:shadow-[0_0_15px_var(--accent)] border border-transparent hover:border-accent">
             <span className="text-white text-[10px] md:text-sm font-medium tracking-wide">Contact</span>

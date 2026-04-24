@@ -104,7 +104,7 @@ export default function Contact() {
                     { label: 'LinkedIn', href: 'https://linkedin.com/in/bennett-joshua' },
                     { label: 'GitHub', href: 'https://github.com/Zenous07' },
                     { label: 'LeetCode', href: 'https://leetcode.com/BennettJoshua' },
-                    { label: 'Download_CV', href: '#' },
+                    { label: 'Download_CV', href: '/assets/resume.pdf' },
                   ].map((link) => (
                     <li key={link.label}>
                       <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-[#888] font-orbitron text-[10px] tracking-widest uppercase hover:text-white transition-colors flex items-center gap-2 group/link">
