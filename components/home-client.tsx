@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Hero from "@/components/hero";
 import About from "@/components/about";
+import Skills from "@/components/skills";
 import ProjectsClient from "@/components/projects-client";
 import LeetcodeClient from "@/components/leetcode-client";
 import Contact from "@/components/contact";
@@ -33,6 +34,7 @@ export default function HomeClient({ repos, leetcodeData }: { repos: any[], leet
         <div className="flex flex-col bg-[#050505] w-full min-h-screen pb-10 relative">
           <Hero />
           <About />
+          <Skills />
           <ProjectsClient repos={repos} />
           <LeetcodeClient data={leetcodeData} />
           <Contact />
