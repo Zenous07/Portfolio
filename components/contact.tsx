@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getAssetUrl } from "@/lib/constants";
 
 export default function Contact() {
   const [message, setMessage] = useState("");
@@ -101,10 +102,10 @@ export default function Contact() {
                 <h4 className="font-orbitron text-[9px] tracking-[0.3em] text-[#444] uppercase mb-6">// External_Nodes</h4>
                 <ul className="space-y-4">
                   {[
-                    { label: 'LinkedIn', href: 'https://linkedin.com/in/bennett-joshua' },
+                    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/bennettjoshuaa' },
                     { label: 'GitHub', href: 'https://github.com/Zenous07' },
                     { label: 'LeetCode', href: 'https://leetcode.com/BennettJoshua' },
-                    { label: 'Download_CV', href: '/assets/resume.pdf' },
+                    { label: 'Download_CV', href: getAssetUrl('resume.pdf') },
                   ].map((link) => (
                     <li key={link.label}>
                       <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-[#888] font-orbitron text-[10px] tracking-widest uppercase hover:text-white transition-colors flex items-center gap-2 group/link">

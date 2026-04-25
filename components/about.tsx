@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import Image from 'next/image';
+import { getAssetUrl } from '@/lib/constants';
 
 const STATS = [
   { label: "Web Architecture", value: 95, icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
@@ -20,7 +21,7 @@ export default function About() {
       {/* Background Character Image with Neural Overlay */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none overflow-hidden">
         <Image 
-          src="/assets/aboutusChar.png" 
+          src={getAssetUrl("aboutusChar.png")} 
           alt="About Me Character" 
           fill
           className="object-contain scale-110 md:scale-100 translate-x-[10%] opacity-50"

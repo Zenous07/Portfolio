@@ -351,6 +351,7 @@ const PixelBlast = ({
         }
     }
     if (mustReinit) {
+      // Always cleanup existing instance before creating a new one
       if (threeRef.current) {
         const t = threeRef.current;
         t.resizeObserver?.disconnect();
@@ -363,6 +364,7 @@ const PixelBlast = ({
         if (t.renderer.domElement.parentElement === container) container.removeChild(t.renderer.domElement);
         threeRef.current = null;
       }
+
       const checkWebGL = () => {
         try {
           const tempCanvas = document.createElement('canvas');
@@ -585,7 +587,6 @@ const PixelBlast = ({
     }
     prevConfigRef.current = cfg;
     return () => {
-      if (threeRef.current && mustReinit) return;
       if (!threeRef.current) return;
       const t = threeRef.current;
       t.resizeObserver?.disconnect();

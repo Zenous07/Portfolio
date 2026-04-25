@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { getAssetUrl } from "@/lib/constants";
 
 interface TerminalProps {
   onExit: () => void;
@@ -71,7 +72,7 @@ export default function Terminal({ onExit }: TerminalProps) {
         case "cat resume.pdf":
         case "cat resume":
         case "resume":
-          window.open('/assets/resume.pdf', '_blank');
+          window.open(getAssetUrl('resume.pdf'), '_blank');
           outputText = "Opening C:\\Users\\Zenous\\resume.pdf in a new buffer...";
           break;
         case "skills":
