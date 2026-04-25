@@ -363,30 +363,30 @@ const PixelBlast = ({
         if (t.renderer.domElement.parentElement === container) container.removeChild(t.renderer.domElement);
         threeRef.current = null;
       }
-      const canvas = document.createElement('canvas');
-      let renderer;
-      
-      // Silent check for WebGL support before any Three.js initialization
-      const isWebGLAvailable = () => {
+      const checkWebGL = () => {
         try {
-          return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+          const tempCanvas = document.createElement('canvas');
+          return !!(window.WebGLRenderingContext && 
+            (tempCanvas.getContext('webgl') || tempCanvas.getContext('experimental-webgl')));
         } catch (e) {
           return false;
         }
       };
 
-      if (!isWebGLAvailable()) {
+      if (!checkWebGL()) {
         setWebglSupported(false);
         return;
       }
 
+      const canvas = document.createElement('canvas');
+      let renderer;
       try {
         renderer = new THREE.WebGLRenderer({
           canvas,
           antialias,
           alpha: true,
           powerPreference: 'high-performance',
-          failIfMajorPerformanceCaveat: true // Changed to true to fail silently if hardware is weak/disabled
+          failIfMajorPerformanceCaveat: true
         });
       } catch (e) {
         setWebglSupported(false);
